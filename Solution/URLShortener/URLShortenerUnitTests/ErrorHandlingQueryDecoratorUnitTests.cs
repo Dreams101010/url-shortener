@@ -35,18 +35,18 @@ namespace URLShortenerUnitTests
         {
             // Arrange
             int expected = 5;
-            var commandMock = new Mock<IQuery<int, int>>();
-            commandMock.Setup(x => x.Execute(It.IsAny<int>())).Returns(expected);
+            var queryMock = new Mock<IQuery<int, int>>();
+            queryMock.Setup(x => x.Execute(It.IsAny<int>())).Returns(expected);
 
             var loggerMock = new Mock<ILogger<ErrorHandlingQueryDecorator<int, int>>>();
-            var decorator = new ErrorHandlingQueryDecorator<int, int>(commandMock.Object, loggerMock.Object);
+            var decorator = new ErrorHandlingQueryDecorator<int, int>(queryMock.Object, loggerMock.Object);
 
             // Act
             var result = decorator.Execute(2);
 
             // Assert
             Assert.Equal(expected, result);
-            commandMock.Verify(x => x.Execute(It.IsAny<int>()), Times.Once);
+            queryMock.Verify(x => x.Execute(It.IsAny<int>()), Times.Once);
             loggerMock.Verify(l => l.Log(
                 It.IsAny<LogLevel>(),
                 It.IsAny<EventId>(),
