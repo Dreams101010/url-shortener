@@ -27,6 +27,7 @@ namespace URLShortenerUI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddOptions();
+            services.AddControllersWithViews();
             services.AddSingleton((provider) =>
                 new MongoClient(Configuration.GetSection("ConnectionStrings")["MongoDBConnectionString"]));
             services.AddSingleton((provider) =>
@@ -50,10 +51,15 @@ namespace URLShortenerUI
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
+                endpoints.MapControllerRoute(name: "regEmpty",
+                    pattern: "",
+                    defaults: new { controller = "Home", action = "Index" });
+                endpoints.MapControllerRoute(name: "regRegister",
+                    pattern: "register",
+                    defaults: new { controller = "Home", action = "Register" });
+                endpoints.MapControllerRoute(name: "shortUrl",
+                    pattern: "{*shortUrl}",
+                    defaults: new { controller = "Home", action = "RedirectTo" });
             });
         }
     }
