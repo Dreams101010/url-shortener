@@ -1,0 +1,9 @@
+﻿@model URLShortenerUI.Models.Home.URLRedirectViewModel
+<div>
+    <h4>You are being redirected...</h4>
+</div>
+<script>
+    setTimeout(function () {
+        window.location.href = "@Model.Url"
+    }, 2000);
+</script>
