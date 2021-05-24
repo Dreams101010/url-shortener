@@ -1,0 +1,26 @@
+﻿@model URLShortenerUI.Models.Home.URLRegisterViewModel;
+<div>
+    <h4>To register URL enter following data:</h4>
+    <form asp-action="Register" method="post">
+        <div class="mb-3">
+            <label asp-for="ShortUrl" class="form-label"></label>
+            <input asp-for="ShortUrl" class="form-control" />
+            <span asp-validation-for="ShortUrl" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="LongUrl" class="form-label"></label>
+            <input asp-for="LongUrl" class="form-control" />
+            <span asp-validation-for="LongUrl" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="ExpireIn" class="form-label"></label>
+            <select asp-for="ExpireIn"
+                    asp-items="Html.GetEnumSelectList<URLShortenerUI.Models.Home.ExpireIn>()"
+                    class="form-select"></select>
+            <span asp-validation-for="ExpireIn" class="text-danger"></span>
+        </div>
+        <div>
+            <input type="submit" class="btn-outline-dark" value="Register" />
+        </div>
+    </form>
+</div>
