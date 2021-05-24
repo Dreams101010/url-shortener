@@ -2,12 +2,23 @@
 
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/lib/twitter-bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/HomeLayout.css" />
     <title>@ViewBag.Title</title>
 </head>
 <body>
-    <div>
+    <div class="sidenav">
+        <a asp-action="Index">Main page</a>
+        <a asp-action="Register">Register a URL</a>
+    </div>
+    <div class="container body-content">
         @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; URLShortener</p>
+        </footer>
     </div>
 </body>
 </html>
