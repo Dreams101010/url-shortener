@@ -30,10 +30,7 @@ namespace URLShortenerDomainLayer.Decorators.Query
             else
             {
                 result = Decoratee.Execute(param);
-                if (result is not null)
-                {
-                    CacheService.Set(key, result);
-                }
+                CacheService.Set(key, result);
             }
             return result;
         }

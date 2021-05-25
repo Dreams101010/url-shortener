@@ -42,12 +42,6 @@ namespace URLShortenerUI.Controllers
             }
             try
             {
-                var exists = UrlService.GetURLByShortURL(urlToRegister.ShortUrl) is not null;
-                if (exists)
-                {
-                    ModelState.AddModelError("ShortUrl", "Short URL is already taken");
-                    return View();
-                }
                 var domainModel = ModelHelper.GetURLDomainModel(urlToRegister);
                 UrlService.AddURL(domainModel);
             }
@@ -65,14 +59,9 @@ namespace URLShortenerUI.Controllers
             try
             {
                 var urlModel = UrlService.GetURLByShortURL(shortUrl);
-                if (urlModel is null)
-                {
-                    return View("Error");
-                }
                 if (urlModel.ExpireDateTime > DateTime.Now) // URL has expired
                 {
-                    var redirectModel = ModelHelper.GetURLRedirectViewModel(urlModel);
-                    return View("Redirect", redirectModel);
+                    return View(urlModel.LongUrl);
                 }
                 else
                 {

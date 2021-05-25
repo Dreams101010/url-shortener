@@ -14,7 +14,5 @@ namespace URLShortenerUI.Models.Helpers
         public URLRegistrationSuccessfulViewModel GetURLRegistrationSuccessfulViewModel(
                     URLRegisterViewModel model,
                     HttpContext context);
-
-        public URLRedirectViewModel GetURLRedirectViewModel(URLDomainModel domainModel);
     }
 }
