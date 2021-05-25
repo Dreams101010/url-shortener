@@ -10,8 +10,8 @@ namespace URLShortenerDomainLayer.Services
 {
     public class URLService
     {
-        public ICommand<AddURLCommandParam, bool> AddCommand { get; }
-        public IQuery<GetURLByShortURLQueryParam, URLDomainModel> GetUrlByShortUrlQuery { get; }
+        private ICommand<AddURLCommandParam, bool> AddCommand { get; }
+        private IQuery<GetURLByShortURLQueryParam, URLDomainModel> GetUrlByShortUrlQuery { get; }
 
         public URLService(
             ICommand<AddURLCommandParam, bool> addCommand,
