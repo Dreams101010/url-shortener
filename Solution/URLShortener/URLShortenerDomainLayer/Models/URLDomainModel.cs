@@ -20,5 +20,9 @@ namespace URLShortenerDomainLayer.Models
         [Required(ErrorMessage = "Expire Date/Time is required.")]
         public DateTime ExpireDateTime { get; set; }
 
+        public bool HasExpired()
+        {
+            return ExpireDateTime < DateTime.Now;
+        }
     }
 }

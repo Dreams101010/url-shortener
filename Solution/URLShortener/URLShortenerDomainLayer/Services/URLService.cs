@@ -12,15 +12,18 @@ namespace URLShortenerDomainLayer.Services
     {
         private ICommand<AddURLCommandParam, bool> AddCommand { get; }
         private IQuery<GetURLByShortURLQueryParam, URLDomainModel> GetUrlByShortUrlQuery { get; }
+        private ICommand<RemoveUrlByShortUrlCommandParam, bool> RemoveCommand { get; }
 
         public URLService(
             ICommand<AddURLCommandParam, bool> addCommand,
-            IQuery<GetURLByShortURLQueryParam, URLDomainModel> getUrlByShortUrlQuery)
+            IQuery<GetURLByShortURLQueryParam, URLDomainModel> getUrlByShortUrlQuery,
+            ICommand<RemoveUrlByShortUrlCommandParam, bool> removeCommand)
         {
             AddCommand = 
                 addCommand ?? throw new ArgumentNullException(nameof(addCommand));
             GetUrlByShortUrlQuery = 
                 getUrlByShortUrlQuery ?? throw new ArgumentNullException(nameof(getUrlByShortUrlQuery));
+            RemoveCommand = removeCommand ?? throw new ArgumentNullException(nameof(removeCommand));
         }
 
         public void AddURL(URLDomainModel url)
@@ -49,6 +52,20 @@ namespace URLShortenerDomainLayer.Services
                 ShortURL = shortUrl,
             };
             return GetUrlByShortUrlQuery.Execute(param);
+        }
+
+        public bool RemoveUrlByShortUrl(string shortUrl)
+        {
+            if (shortUrl is null)
+            {
+                throw new ArgumentNullException(nameof(shortUrl));
+            }
+
+            RemoveUrlByShortUrlCommandParam param = new()
+            {
+                ShortUrl = shortUrl,
+            };
+            return RemoveCommand.Execute(param);
         }
     }
 }
