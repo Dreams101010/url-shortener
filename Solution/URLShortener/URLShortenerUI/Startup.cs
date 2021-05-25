@@ -18,6 +18,7 @@ using URLShortenerDomainLayer.Decorators.Command;
 using URLShortenerDomainLayer.Decorators.Query;
 using URLShortenerDataAccessLayer;
 using URLShortenerDomainLayer.Models;
+using URLShortenerUI.Filters;
 
 namespace URLShortenerUI
 {
@@ -34,7 +35,10 @@ namespace URLShortenerUI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddOptions();
-            services.AddControllersWithViews();
+            services.AddControllersWithViews((opts) =>
+            {
+                opts.Filters.Add(new ExceptionRedirectFilter());
+            });
             services.AddSingleton((provider) =>
                 new MongoClient(Configuration.GetSection("ConnectionStrings")["MongoDBConnectionString"]));
             services.AddSingleton((provider) =>
@@ -48,21 +52,22 @@ namespace URLShortenerUI
         {
             builder.RegisterType<AddUrlCommand>().As(typeof(ICommand<AddURLCommandParam, bool>));
             builder.RegisterType<GetUrlQuery>().As(typeof(IQuery<GetURLByShortURLQueryParam, URLDomainModel>));
+            builder.RegisterType<RemoveUrlByShortUrlCommand>().As(typeof(ICommand<RemoveUrlByShortUrlCommandParam, bool>));
             // command decorators
-            builder.RegisterGenericDecorator(typeof(ErrorHandlingCommandDecorator<,>),
+            builder.RegisterGenericDecorator(typeof(RetryCommandDecorator<,>),
                 typeof(ICommand<,>));
             builder.RegisterGenericDecorator(typeof(LoggingCommandDecorator<,>),
                 typeof(ICommand<,>));
-            builder.RegisterGenericDecorator(typeof(RetryCommandDecorator<,>),
+            builder.RegisterGenericDecorator(typeof(ErrorHandlingCommandDecorator<,>),
                 typeof(ICommand<,>));
             // query decorators
-            builder.RegisterGenericDecorator(typeof(ErrorHandlingQueryDecorator<,>),
-                typeof(IQuery<,>));
-            builder.RegisterGenericDecorator(typeof(LoggingQueryDecorator<,>),
-                typeof(IQuery<,>));
             builder.RegisterGenericDecorator(typeof(CachingQueryDecorator<,>),
                 typeof(IQuery<,>));
             builder.RegisterGenericDecorator(typeof(RetryQueryDecorator<,>),
+                typeof(IQuery<,>));
+            builder.RegisterGenericDecorator(typeof(LoggingQueryDecorator<,>),
+                typeof(IQuery<,>));
+            builder.RegisterGenericDecorator(typeof(ErrorHandlingQueryDecorator<,>),
                 typeof(IQuery<,>));
         }
 
@@ -88,6 +93,9 @@ namespace URLShortenerUI
                 endpoints.MapControllerRoute(name: "shortUrl",
                     pattern: "{*shortUrl}",
                     defaults: new { controller = "Home", action = "RedirectTo" });
+                endpoints.MapControllerRoute(name: "error",
+                    pattern: "error",
+                    defaults: new { controller = "Home", action = "Error" });
             });
         }
     }
