@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using URLShortenerUI.Models.Helpers;
 using URLShortenerUI.Models.Home;
 using URLShortenerDomainLayer.Services;
+using AspNetCore.ReCaptcha;
 
 namespace URLShortenerUI.Controllers
 {
@@ -34,6 +35,7 @@ namespace URLShortenerUI.Controllers
         }
 
         [HttpPost]
+        [ValidateReCaptcha]
         public IActionResult Register(URLRegisterViewModel urlToRegister)
         {
             if (!ModelState.IsValid)
