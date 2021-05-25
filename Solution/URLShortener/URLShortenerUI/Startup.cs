@@ -11,6 +11,13 @@ using Microsoft.Extensions.Configuration;
 using Autofac;
 using MongoDB.Driver;
 using StackExchange.Redis;
+using URLShortenerUI.Models.Helpers;
+using URLShortenerDomainLayer.Services;
+using URLShortenerDomainLayer.Interfaces;
+using URLShortenerDomainLayer.Decorators.Command;
+using URLShortenerDomainLayer.Decorators.Query;
+using URLShortenerDataAccessLayer;
+using URLShortenerDomainLayer.Models;
 
 namespace URLShortenerUI
 {
@@ -32,11 +39,31 @@ namespace URLShortenerUI
                 new MongoClient(Configuration.GetSection("ConnectionStrings")["MongoDBConnectionString"]));
             services.AddSingleton((provider) =>
                 ConnectionMultiplexer.Connect(Configuration.GetSection("ConnectionStrings")["RedisConnectionString"]));
+            services.AddSingleton<IHomeControllerModelHelper, HomeControllerModelHelper>();
+            services.AddSingleton<URLService>();
+            services.AddSingleton<ICache, RedisCache>();
         }
 
         public void ConfigureContainer(ContainerBuilder builder)
         {
-
+            builder.RegisterType<AddUrlCommand>().As(typeof(ICommand<AddURLCommandParam, bool>));
+            builder.RegisterType<GetUrlQuery>().As(typeof(IQuery<GetURLByShortURLQueryParam, URLDomainModel>));
+            // command decorators
+            builder.RegisterGenericDecorator(typeof(ErrorHandlingCommandDecorator<,>),
+                typeof(ICommand<,>));
+            builder.RegisterGenericDecorator(typeof(LoggingCommandDecorator<,>),
+                typeof(ICommand<,>));
+            builder.RegisterGenericDecorator(typeof(RetryCommandDecorator<,>),
+                typeof(ICommand<,>));
+            // query decorators
+            builder.RegisterGenericDecorator(typeof(ErrorHandlingQueryDecorator<,>),
+                typeof(IQuery<,>));
+            builder.RegisterGenericDecorator(typeof(LoggingQueryDecorator<,>),
+                typeof(IQuery<,>));
+            builder.RegisterGenericDecorator(typeof(CachingQueryDecorator<,>),
+                typeof(IQuery<,>));
+            builder.RegisterGenericDecorator(typeof(RetryQueryDecorator<,>),
+                typeof(IQuery<,>));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

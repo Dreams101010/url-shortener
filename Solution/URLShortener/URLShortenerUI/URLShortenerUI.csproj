@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\URLShortenerDataAccessLayer\URLShortenerDataAccessLayer.csproj" />
     <ProjectReference Include="..\URLShortenerDomainLayer\URLShortenerDomainLayer.csproj" />
   </ItemGroup>
 
