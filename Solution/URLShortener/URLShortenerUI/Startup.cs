@@ -49,20 +49,20 @@ namespace URLShortenerUI
             builder.RegisterType<AddUrlCommand>().As(typeof(ICommand<AddURLCommandParam, bool>));
             builder.RegisterType<GetUrlQuery>().As(typeof(IQuery<GetURLByShortURLQueryParam, URLDomainModel>));
             // command decorators
-            builder.RegisterGenericDecorator(typeof(ErrorHandlingCommandDecorator<,>),
+            builder.RegisterGenericDecorator(typeof(RetryCommandDecorator<,>),
                 typeof(ICommand<,>));
             builder.RegisterGenericDecorator(typeof(LoggingCommandDecorator<,>),
                 typeof(ICommand<,>));
-            builder.RegisterGenericDecorator(typeof(RetryCommandDecorator<,>),
+            builder.RegisterGenericDecorator(typeof(ErrorHandlingCommandDecorator<,>),
                 typeof(ICommand<,>));
             // query decorators
-            builder.RegisterGenericDecorator(typeof(ErrorHandlingQueryDecorator<,>),
-                typeof(IQuery<,>));
-            builder.RegisterGenericDecorator(typeof(LoggingQueryDecorator<,>),
-                typeof(IQuery<,>));
             builder.RegisterGenericDecorator(typeof(CachingQueryDecorator<,>),
                 typeof(IQuery<,>));
             builder.RegisterGenericDecorator(typeof(RetryQueryDecorator<,>),
+                typeof(IQuery<,>));
+            builder.RegisterGenericDecorator(typeof(LoggingQueryDecorator<,>),
+                typeof(IQuery<,>));
+            builder.RegisterGenericDecorator(typeof(ErrorHandlingQueryDecorator<,>),
                 typeof(IQuery<,>));
         }
 
