@@ -40,15 +40,14 @@ namespace URLShortenerUI.Controllers
             {
                 return View();
             }
-            try
+            var exists = UrlService.GetURLByShortURL(urlToRegister.ShortUrl) is not null;
+            if (exists)
             {
-                var domainModel = ModelHelper.GetURLDomainModel(urlToRegister);
-                UrlService.AddURL(domainModel);
+                ModelState.AddModelError("ShortUrl", "Short URL is already taken");
+                return View();
             }
-            catch
-            {
-                return View("Error");
-            }
+            var domainModel = ModelHelper.GetURLDomainModel(urlToRegister);
+            UrlService.AddURL(domainModel);
             var registerSuccessModel = ModelHelper
                 .GetURLRegistrationSuccessfulViewModel(urlToRegister, HttpContext);
             return View("RegisterSuccess", registerSuccessModel);
@@ -56,22 +55,27 @@ namespace URLShortenerUI.Controllers
 
         public IActionResult RedirectTo(string shortUrl)
         {
-            try
-            {
-                var urlModel = UrlService.GetURLByShortURL(shortUrl);
-                if (urlModel.ExpireDateTime > DateTime.Now) // URL has expired
-                {
-                    return View(urlModel.LongUrl);
-                }
-                else
-                {
-                    return View("Error");
-                }
-            }
-            catch
+            var urlModel = UrlService.GetURLByShortURL(shortUrl);
+            if (urlModel is null)
             {
                 return View("Error");
             }
+            if (!urlModel.HasExpired()) // URL has not expired
+            {
+                var redirectModel = ModelHelper.GetURLRedirectViewModel(urlModel);
+                return View("Redirect", redirectModel);
+            }
+            else
+            {
+                UrlService.RemoveUrlByShortUrl(shortUrl);
+                return View("Error");
+            }
+        }
+
+        [HttpGet]
+        public IActionResult Error()
+        {
+            return View();
         }
     }
 }
