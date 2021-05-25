@@ -28,13 +28,23 @@ namespace URLShortenerUI.Models.Helpers
             };
         }
 
+        public URLRedirectViewModel GetURLRedirectViewModel(URLDomainModel domainModel)
+        {
+            return new()
+            {
+                Url = domainModel.LongUrl
+            };
+        }
+
         public URLRegistrationSuccessfulViewModel GetURLRegistrationSuccessfulViewModel(
             URLRegisterViewModel model,
             HttpContext context)
         {
-            var uriBuilder = new UriBuilder();
-            uriBuilder.Scheme = context.Request.Scheme;
-            uriBuilder.Host = context.Request.Host.Host;
+            var uriBuilder = new UriBuilder
+            {
+                Scheme = context.Request.Scheme,
+                Host = context.Request.Host.Host
+            };
             uriBuilder.Port = context.Request.Host.Port ?? uriBuilder.Port;
             uriBuilder.Path = model.ShortUrl;
             var url = uriBuilder.Uri.ToString();
