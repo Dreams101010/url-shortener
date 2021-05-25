@@ -9,12 +9,12 @@ namespace URLShortenerUI.Models.Helpers
 {
     public class URLRegistrationSuccessfulModelHelper
     {
-        public static URLRegistrationSuccessfulViewModel GetURLRegistrationSuccessfulViewModel(URLRegisterViewModel model)
+        public static URLRegistrationSuccessfulViewModel GetURLRegistrationSuccessfulViewModel(
+            URLRegisterViewModel model)
         {
             return new()
             {
-                // TODO: get domain name from config
-                ShortenedURL = $"https://localhost:44307/{model.ShortUrl}",
+                ShortURL = model.ShortUrl,
             };
         }
     }

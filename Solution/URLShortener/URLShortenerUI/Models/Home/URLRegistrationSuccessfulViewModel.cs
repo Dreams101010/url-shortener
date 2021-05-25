@@ -7,6 +7,6 @@ namespace URLShortenerUI.Models.Home
 {
     public class URLRegistrationSuccessfulViewModel
     {
-        public string ShortenedURL { get; set; }
+        public string ShortURL { get; set; }
     }
 }
