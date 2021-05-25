@@ -43,7 +43,7 @@ namespace URLShortenerDataAccessLayer
         public void Set<T>(string key, T value)
         {
             var serialized = JsonSerializer.Serialize<T>(value);
-            bool success = ConnectionMultiplexer.GetDatabase().StringSet(key, serialized);
+            bool success = ConnectionMultiplexer.GetDatabase().StringSet(key, serialized, TimeSpan.FromMinutes(5));
             if (!success)
             {
                 throw new ArgumentException("Cache error while trying to add value");
