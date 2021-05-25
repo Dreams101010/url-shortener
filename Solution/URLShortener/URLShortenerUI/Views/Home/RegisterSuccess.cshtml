@@ -1,15 +1,7 @@
 ﻿@model URLShortenerUI.Models.Home.URLRegistrationSuccessfulViewModel
-@{
-    var uriBuilder = new UriBuilder();
-    uriBuilder.Scheme = Context.Request.Scheme;
-    uriBuilder.Host = Context.Request.Host.Host;
-    uriBuilder.Port = Context.Request.Host.Port ?? uriBuilder.Port;
-    uriBuilder.Path = Model.ShortURL;
-    var url = uriBuilder.Uri;
-}
 
 
 <div>
     <h4>Registration successful</h4>
-    <p>Your shortened URL is <a href=@url>@url</a></p>
+    <p>Your shortened URL is <a href=@Model.Url>@Model.Url</a></p>
 </div>

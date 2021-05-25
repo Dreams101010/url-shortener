@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,9 +8,9 @@ using URLShortenerUI.Models.Home;
 
 namespace URLShortenerUI.Models.Helpers
 {
-    public class URLDomainModelHelper
+    public class HomeControllerModelHelper : IHomeControllerModelHelper
     {
-        public static URLDomainModel GetURLDomainModel(URLRegisterViewModel registerModel)
+        public URLDomainModel GetURLDomainModel(URLRegisterViewModel registerModel)
         {
             TimeSpan expireSpan = registerModel.ExpireIn switch
             {
@@ -24,6 +25,22 @@ namespace URLShortenerUI.Models.Helpers
                 ShortUrl = registerModel.ShortUrl,
                 LongUrl = registerModel.LongUrl,
                 ExpireDateTime = expireDate,
+            };
+        }
+
+        public URLRegistrationSuccessfulViewModel GetURLRegistrationSuccessfulViewModel(
+            URLRegisterViewModel model,
+            HttpContext context)
+        {
+            var uriBuilder = new UriBuilder();
+            uriBuilder.Scheme = context.Request.Scheme;
+            uriBuilder.Host = context.Request.Host.Host;
+            uriBuilder.Port = context.Request.Host.Port ?? uriBuilder.Port;
+            uriBuilder.Path = model.ShortUrl;
+            var url = uriBuilder.Uri.ToString();
+            return new()
+            {
+                Url = url,
             };
         }
     }
