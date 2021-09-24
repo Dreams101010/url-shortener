@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using URLShortenerDomainLayer.Models;
+using UrlShortenerDomainLayer.Models;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace URLShortenerDataAccessLayer.Models
+namespace UrlShortenerDataAccessLayer.Models
 {
     public class UrlMongoModel
     {
@@ -22,14 +22,14 @@ namespace URLShortenerDataAccessLayer.Models
 
         }
 
-        public UrlMongoModel(URLDomainModel domainModel)
+        public UrlMongoModel(UrlDomainModel domainModel)
         {
             ShortUrl = domainModel.ShortUrl;
             LongUrl = domainModel.LongUrl;
             ExpireDateTime = domainModel.ExpireDateTime;
         }
 
-        public URLDomainModel GetDomainModel()
+        public UrlDomainModel GetDomainModel()
         {
             return new()
             {

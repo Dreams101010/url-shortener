@@ -6,17 +6,17 @@ using Microsoft.Extensions.Configuration;
 using Autofac;
 using MongoDB.Driver;
 using StackExchange.Redis;
-using URLShortenerUI.Models.Helpers;
-using URLShortenerDomainLayer.Services;
-using URLShortenerDomainLayer.Interfaces;
-using URLShortenerDomainLayer.Decorators.Command;
-using URLShortenerDomainLayer.Decorators.Query;
-using URLShortenerDataAccessLayer;
-using URLShortenerDomainLayer.Models;
-using URLShortenerUI.Filters;
+using UrlShortenerUI.Models.Helpers;
+using UrlShortenerDomainLayer.Services;
+using UrlShortenerDomainLayer.Interfaces;
+using UrlShortenerDomainLayer.Decorators.Command;
+using UrlShortenerDomainLayer.Decorators.Query;
+using UrlShortenerDataAccessLayer;
+using UrlShortenerDomainLayer.Models;
+using UrlShortenerUI.Filters;
 using AspNetCore.ReCaptcha;
 
-namespace URLShortenerUI
+namespace UrlShortenerUI
 {
     public class Startup
     {
@@ -39,17 +39,20 @@ namespace URLShortenerUI
             services.AddSingleton((provider) =>
                 new MongoClient(Configuration.GetSection("ConnectionStrings")["MongoDBConnectionString"]));
             services.AddSingleton((provider) =>
-                ConnectionMultiplexer.Connect(Configuration.GetSection("ConnectionStrings")["RedisConnectionString"]));
+                ConnectionMultiplexer
+                    .Connect(Configuration.GetSection("ConnectionStrings")["RedisConnectionString"])
+                );
             services.AddSingleton<IHomeControllerModelHelper, HomeControllerModelHelper>();
-            services.AddSingleton<URLService>();
+            services.AddSingleton<UrlService>();
             services.AddSingleton<ICache, RedisCache>();
         }
 
         public void ConfigureContainer(ContainerBuilder builder)
         {
-            builder.RegisterType<AddUrlCommand>().As(typeof(ICommand<AddURLCommandParam, bool>));
-            builder.RegisterType<GetUrlQuery>().As(typeof(IQuery<GetURLByShortURLQueryParam, URLDomainModel>));
-            builder.RegisterType<RemoveUrlByShortUrlCommand>().As(typeof(ICommand<RemoveUrlByShortUrlCommandParam, bool>));
+            builder.RegisterType<AddUrlCommand>().As(typeof(ICommand<AddUrlCommandParam, bool>));
+            builder.RegisterType<GetUrlQuery>().As(typeof(IQuery<GetUrlByShortUrlQueryParam, UrlDomainModel>));
+            builder.RegisterType<RemoveUrlByShortUrlCommand>()
+                .As(typeof(ICommand<RemoveUrlByShortUrlCommandParam, bool>));
             // command decorators
             builder.RegisterGenericDecorator(typeof(RetryCommandDecorator<,>),
                 typeof(ICommand<,>));

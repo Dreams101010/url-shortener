@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using URLShortenerDomainLayer.Interfaces;
+using UrlShortenerDomainLayer.Interfaces;
 using Microsoft.Extensions.Logging;
 
-namespace URLShortenerDomainLayer.Decorators.Command
+namespace UrlShortenerDomainLayer.Decorators.Command
 {
     // The purpose of this decorator is to log the exception and throw it.
     public class ErrorHandlingCommandDecorator<TParam, TOutput> : ICommand<TParam, TOutput>

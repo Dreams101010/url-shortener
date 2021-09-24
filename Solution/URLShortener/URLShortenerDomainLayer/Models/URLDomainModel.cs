@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace URLShortenerDomainLayer.Models
+namespace UrlShortenerDomainLayer.Models
 {
-    public class URLDomainModel
+    public class UrlDomainModel
     {
         [Required(ErrorMessage = "Short URL is required")]
         [MaxLength(15, ErrorMessage = "Short URL is too long. (Max length is 15 characters)")]

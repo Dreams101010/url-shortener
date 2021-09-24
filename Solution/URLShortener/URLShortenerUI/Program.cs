@@ -10,7 +10,7 @@ using Serilog;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 
-namespace URLShortenerUI
+namespace UrlShortenerUI
 {
     public class Program
     {

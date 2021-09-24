@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace URLShortenerDomainLayer.Models
+namespace UrlShortenerDomainLayer.Models
 {
-    public class AddURLCommandParam
+    public class AddUrlCommandParam
     {
-        public URLDomainModel URLToAdd { get; set; }
+        public UrlDomainModel UrlToAdd { get; set; }
     }
 }

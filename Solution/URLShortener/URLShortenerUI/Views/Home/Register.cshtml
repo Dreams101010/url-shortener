@@ -1,4 +1,4 @@
-﻿@model URLShortenerUI.Models.Home.URLRegisterViewModel
+﻿@model UrlShortenerUI.Models.Home.UrlRegisterViewModel
 @using AspNetCore.ReCaptcha;
 <div>
     <h4>To register URL enter following data:</h4>
@@ -16,7 +16,7 @@
         <div class="mb-3">
             <label asp-for="ExpireIn" class="form-label"></label>
             <select asp-for="ExpireIn"
-                    asp-items="Html.GetEnumSelectList<URLShortenerUI.Models.Home.ExpireIn>()"
+                    asp-items="Html.GetEnumSelectList<UrlShortenerUI.Models.Home.ExpireIn>()"
                     class="form-select"></select>
             <span asp-validation-for="ExpireIn" class="text-danger"></span>
         </div>

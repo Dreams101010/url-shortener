@@ -5,12 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 using Moq;
-using URLShortenerDomainLayer.Interfaces;
-using URLShortenerDomainLayer.Decorators.Query;
+using UrlShortenerDomainLayer.Interfaces;
+using UrlShortenerDomainLayer.Decorators.Query;
 using Microsoft.Extensions.Logging;
 
 
-namespace URLShortenerUnitTests
+namespace UrlShortenerUnitTests
 {
     public class LoggingQueryDecoratorUnitTests
     {

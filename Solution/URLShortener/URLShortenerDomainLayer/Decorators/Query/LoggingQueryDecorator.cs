@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using URLShortenerDomainLayer.Interfaces;
+using UrlShortenerDomainLayer.Interfaces;
 using Microsoft.Extensions.Logging;
 
-namespace URLShortenerDomainLayer.Decorators.Query
+namespace UrlShortenerDomainLayer.Decorators.Query
 {
     // The purpose of this decorator is to log the query execution.
     public class LoggingQueryDecorator<TParam, TOutput> : IQuery<TParam, TOutput>

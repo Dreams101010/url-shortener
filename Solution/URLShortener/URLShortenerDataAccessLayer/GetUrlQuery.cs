@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using URLShortenerDataAccessLayer.Models;
-using URLShortenerDomainLayer.Interfaces;
-using URLShortenerDomainLayer.Models;
+using UrlShortenerDataAccessLayer.Models;
+using UrlShortenerDomainLayer.Interfaces;
+using UrlShortenerDomainLayer.Models;
 
-namespace URLShortenerDataAccessLayer
+namespace UrlShortenerDataAccessLayer
 {
-    public class GetUrlQuery : IQuery<GetURLByShortURLQueryParam, URLDomainModel>
+    public class GetUrlQuery : IQuery<GetUrlByShortUrlQueryParam, UrlDomainModel>
     {
         public MongoClient MongoClient { get; }
         public GetUrlQuery(MongoClient mongoClient)
@@ -18,9 +18,9 @@ namespace URLShortenerDataAccessLayer
             MongoClient = mongoClient
                 ?? throw new ArgumentNullException(nameof(mongoClient));
         }
-        public URLDomainModel Execute(GetURLByShortURLQueryParam param)
+        public UrlDomainModel Execute(GetUrlByShortUrlQueryParam param)
         {
-            var filter = Builders<UrlMongoModel>.Filter.Eq("ShortUrl", param.ShortURL);
+            var filter = Builders<UrlMongoModel>.Filter.Eq("ShortUrl", param.ShortUrl);
             var valueFromDb = MongoClient
                 .GetDatabase("urlDatabase")
                 .GetCollection<UrlMongoModel>("urls")

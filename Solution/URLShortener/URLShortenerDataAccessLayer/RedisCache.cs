@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using URLShortenerDomainLayer.Interfaces;
+using UrlShortenerDomainLayer.Interfaces;
 using StackExchange.Redis;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace URLShortenerDataAccessLayer
+namespace UrlShortenerDataAccessLayer
 {
     public class RedisCache : ICache
     {

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace URLShortenerUI.Models.Home
+namespace UrlShortenerUI.Models.Home
 {
     public enum ExpireIn
     {
@@ -16,7 +16,7 @@ namespace URLShortenerUI.Models.Home
         [Display(Name = "Two weeks")]
         TwoWeeks,
     }
-    public class URLRegisterViewModel
+    public class UrlRegisterViewModel
     {
         [Display(Name = "Short URL")]
         [Required(ErrorMessage = "Short URL is required")]

@@ -3,14 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using URLShortenerDomainLayer.Models;
-using URLShortenerUI.Models.Home;
+using UrlShortenerDomainLayer.Models;
+using UrlShortenerUI.Models.Home;
 
-namespace URLShortenerUI.Models.Helpers
+namespace UrlShortenerUI.Models.Helpers
 {
     public class HomeControllerModelHelper : IHomeControllerModelHelper
     {
-        public URLDomainModel GetURLDomainModel(URLRegisterViewModel registerModel)
+        public UrlDomainModel GetUrlDomainModel(UrlRegisterViewModel registerModel)
         {
             TimeSpan expireSpan = registerModel.ExpireIn switch
             {
@@ -28,7 +28,7 @@ namespace URLShortenerUI.Models.Helpers
             };
         }
 
-        public URLRedirectViewModel GetURLRedirectViewModel(URLDomainModel domainModel)
+        public UrlRedirectViewModel GetUrlRedirectViewModel(UrlDomainModel domainModel)
         {
             return new()
             {
@@ -36,8 +36,8 @@ namespace URLShortenerUI.Models.Helpers
             };
         }
 
-        public URLRegistrationSuccessfulViewModel GetURLRegistrationSuccessfulViewModel(
-            URLRegisterViewModel model,
+        public UrlRegistrationSuccessfulViewModel GetUrlRegistrationSuccessfulViewModel(
+            UrlRegisterViewModel model,
             HttpContext context)
         {
             var uriBuilder = new UriBuilder

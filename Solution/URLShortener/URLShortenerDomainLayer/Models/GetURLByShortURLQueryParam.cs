@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace URLShortenerDomainLayer.Models
+namespace UrlShortenerDomainLayer.Models
 {
-    public class GetURLByShortURLQueryParam
+    public class GetUrlByShortUrlQueryParam
     {
-        public string ShortURL { get; set; }
+        public string ShortUrl { get; set; }
     }
 }

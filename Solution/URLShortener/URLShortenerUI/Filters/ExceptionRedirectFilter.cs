@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Extensions.Logging;
 
-namespace URLShortenerUI.Filters
+namespace UrlShortenerUI.Filters
 {
     public class ExceptionRedirectFilter : Attribute, IExceptionFilter
     {

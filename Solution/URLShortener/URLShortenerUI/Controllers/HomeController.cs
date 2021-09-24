@@ -3,19 +3,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using URLShortenerUI.Models.Helpers;
-using URLShortenerUI.Models.Home;
-using URLShortenerDomainLayer.Services;
+using UrlShortenerUI.Models.Helpers;
+using UrlShortenerUI.Models.Home;
+using UrlShortenerDomainLayer.Services;
 using AspNetCore.ReCaptcha;
 
-namespace URLShortenerUI.Controllers
+namespace UrlShortenerUI.Controllers
 {
     public class HomeController : Controller
     {
-        URLService UrlService { get; set; }
+        UrlService UrlService { get; set; }
         IHomeControllerModelHelper ModelHelper { get; set; }
 
-        public HomeController(URLService urlService,
+        public HomeController(UrlService urlService,
             IHomeControllerModelHelper modelHelper)
         {
 
@@ -36,35 +36,35 @@ namespace URLShortenerUI.Controllers
 
         [HttpPost]
         [ValidateReCaptcha]
-        public IActionResult Register(URLRegisterViewModel urlToRegister)
+        public IActionResult Register(UrlRegisterViewModel urlToRegister)
         {
             if (!ModelState.IsValid)
             {
                 return View();
             }
-            var exists = UrlService.GetURLByShortURL(urlToRegister.ShortUrl) is not null;
+            var exists = UrlService.GetUrlByShortUrl(urlToRegister.ShortUrl) is not null;
             if (exists)
             {
                 ModelState.AddModelError("ShortUrl", "Short URL is already taken");
                 return View();
             }
-            var domainModel = ModelHelper.GetURLDomainModel(urlToRegister);
-            UrlService.AddURL(domainModel);
+            var domainModel = ModelHelper.GetUrlDomainModel(urlToRegister);
+            UrlService.AddUrl(domainModel);
             var registerSuccessModel = ModelHelper
-                .GetURLRegistrationSuccessfulViewModel(urlToRegister, HttpContext);
+                .GetUrlRegistrationSuccessfulViewModel(urlToRegister, HttpContext);
             return View("RegisterSuccess", registerSuccessModel);
         }
 
         public IActionResult RedirectTo(string shortUrl)
         {
-            var urlModel = UrlService.GetURLByShortURL(shortUrl);
+            var urlModel = UrlService.GetUrlByShortUrl(shortUrl);
             if (urlModel is null)
             {
                 return View("Error");
             }
             if (!urlModel.HasExpired()) // URL has not expired
             {
-                var redirectModel = ModelHelper.GetURLRedirectViewModel(urlModel);
+                var redirectModel = ModelHelper.GetUrlRedirectViewModel(urlModel);
                 return View("Redirect", redirectModel);
             }
             else

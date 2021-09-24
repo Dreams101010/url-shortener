@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using URLShortenerDataAccessLayer.Models;
-using URLShortenerDomainLayer.Interfaces;
-using URLShortenerDomainLayer.Models;
+using UrlShortenerDataAccessLayer.Models;
+using UrlShortenerDomainLayer.Interfaces;
+using UrlShortenerDomainLayer.Models;
 
-namespace URLShortenerDataAccessLayer 
+namespace UrlShortenerDataAccessLayer 
 {
-    public class AddUrlCommand : ICommand<AddURLCommandParam, bool>
+    public class AddUrlCommand : ICommand<AddUrlCommandParam, bool>
     {
         public MongoClient MongoClient { get; }
         public AddUrlCommand(MongoClient mongoClient)
@@ -19,9 +19,9 @@ namespace URLShortenerDataAccessLayer
                 ?? throw new ArgumentNullException(nameof(mongoClient));
         }
 
-        public bool Execute(AddURLCommandParam param)
+        public bool Execute(AddUrlCommandParam param)
         {
-            var model = new UrlMongoModel(param.URLToAdd);
+            var model = new UrlMongoModel(param.UrlToAdd);
             MongoClient.GetDatabase("urlDatabase")
                 .GetCollection<UrlMongoModel>("urls")
                 .InsertOne(model);

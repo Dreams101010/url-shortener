@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace URLShortenerUI.Models.Home
+namespace UrlShortenerUI.Models.Home
 {
-    public class URLRedirectViewModel
+    public class UrlRedirectViewModel
     {
         public string Url { get; set; }
     }

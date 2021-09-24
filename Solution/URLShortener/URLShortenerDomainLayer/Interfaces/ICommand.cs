@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace URLShortenerDomainLayer.Interfaces
+namespace UrlShortenerDomainLayer.Interfaces
 {
     /* 
      * Command objects represent mutating operations.

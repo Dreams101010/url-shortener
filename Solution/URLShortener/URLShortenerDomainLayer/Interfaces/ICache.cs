@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Text.Json.Serialization;
 using System.Text.Json;
 
-namespace URLShortenerDomainLayer.Interfaces
+namespace UrlShortenerDomainLayer.Interfaces
 {
     public interface ICache
     {

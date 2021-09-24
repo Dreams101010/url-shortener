@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using URLShortenerDomainLayer.Interfaces;
+using UrlShortenerDomainLayer.Interfaces;
 
-namespace URLShortenerDomainLayer.Decorators.Query
+namespace UrlShortenerDomainLayer.Decorators.Query
 {
     // The purpose of this decorator is to retry the query for a few times in case of error
     public class RetryQueryDecorator<TParam, TOutput> : IQuery<TParam, TOutput>

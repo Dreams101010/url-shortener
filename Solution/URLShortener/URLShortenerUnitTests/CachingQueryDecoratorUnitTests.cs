@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 using Moq;
-using URLShortenerDomainLayer.Interfaces;
-using URLShortenerDomainLayer.Decorators.Query;
+using UrlShortenerDomainLayer.Interfaces;
+using UrlShortenerDomainLayer.Decorators.Query;
 
-namespace URLShortenerUnitTests
+namespace UrlShortenerUnitTests
 {
     public class CachingQueryDecoratorUnitTests
     {

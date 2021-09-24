@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using URLShortenerDomainLayer.Interfaces;
+using UrlShortenerDomainLayer.Interfaces;
 
-namespace URLShortenerDomainLayer.Decorators.Query
+namespace UrlShortenerDomainLayer.Decorators.Query
 {
     public class CachingQueryDecorator<TParam, TOutput> : IQuery<TParam, TOutput>
     {

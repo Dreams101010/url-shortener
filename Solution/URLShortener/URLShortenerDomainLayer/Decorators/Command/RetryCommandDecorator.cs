@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using URLShortenerDomainLayer.Interfaces;
+using UrlShortenerDomainLayer.Interfaces;
 
-namespace URLShortenerDomainLayer.Decorators.Command
+namespace UrlShortenerDomainLayer.Decorators.Command
 {
     public class RetryCommandDecorator<TParam, TOutput> : ICommand<TParam, TOutput>
     {

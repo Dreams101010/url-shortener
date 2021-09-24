@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using URLShortenerDataAccessLayer.Models;
-using URLShortenerDomainLayer.Interfaces;
-using URLShortenerDomainLayer.Models;
+using UrlShortenerDataAccessLayer.Models;
+using UrlShortenerDomainLayer.Interfaces;
+using UrlShortenerDomainLayer.Models;
 
-namespace URLShortenerDataAccessLayer
+namespace UrlShortenerDataAccessLayer
 {
     public class RemoveUrlByShortUrlCommand : ICommand<RemoveUrlByShortUrlCommandParam, bool>
     {

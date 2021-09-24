@@ -3,20 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using URLShortenerDomainLayer.Models;
-using URLShortenerDomainLayer.Interfaces;
+using UrlShortenerDomainLayer.Models;
+using UrlShortenerDomainLayer.Interfaces;
 
-namespace URLShortenerDomainLayer.Services
+namespace UrlShortenerDomainLayer.Services
 {
-    public class URLService
+    public class UrlService
     {
-        private ICommand<AddURLCommandParam, bool> AddCommand { get; }
-        private IQuery<GetURLByShortURLQueryParam, URLDomainModel> GetUrlByShortUrlQuery { get; }
+        private ICommand<AddUrlCommandParam, bool> AddCommand { get; }
+        private IQuery<GetUrlByShortUrlQueryParam, UrlDomainModel> GetUrlByShortUrlQuery { get; }
         private ICommand<RemoveUrlByShortUrlCommandParam, bool> RemoveCommand { get; }
 
-        public URLService(
-            ICommand<AddURLCommandParam, bool> addCommand,
-            IQuery<GetURLByShortURLQueryParam, URLDomainModel> getUrlByShortUrlQuery,
+        public UrlService(
+            ICommand<AddUrlCommandParam, bool> addCommand,
+            IQuery<GetUrlByShortUrlQueryParam, UrlDomainModel> getUrlByShortUrlQuery,
             ICommand<RemoveUrlByShortUrlCommandParam, bool> removeCommand)
         {
             AddCommand = 
@@ -26,30 +26,30 @@ namespace URLShortenerDomainLayer.Services
             RemoveCommand = removeCommand ?? throw new ArgumentNullException(nameof(removeCommand));
         }
 
-        public void AddURL(URLDomainModel url)
+        public void AddUrl(UrlDomainModel url)
         {
             if (url is null)
             {
                 throw new ArgumentNullException(nameof(url));
             }
 
-            AddURLCommandParam param = new()
+            AddUrlCommandParam param = new()
             {
-                URLToAdd = url,
+                UrlToAdd = url,
             };
             AddCommand.Execute(param);
         }
 
-        public URLDomainModel GetURLByShortURL(string shortUrl)
+        public UrlDomainModel GetUrlByShortUrl(string shortUrl)
         {
             if (shortUrl is null)
             {
                 throw new ArgumentNullException(nameof(shortUrl));
             }
 
-            GetURLByShortURLQueryParam param = new()
+            GetUrlByShortUrlQueryParam param = new()
             {
-                ShortURL = shortUrl,
+                ShortUrl = shortUrl,
             };
             return GetUrlByShortUrlQuery.Execute(param);
         }
